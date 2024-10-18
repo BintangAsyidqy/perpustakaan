@@ -61,34 +61,28 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('perpustakaan.data') }}">Data Buku</a>
-                        <a class="collapse-item" href="{{ route('perpustakaan.tambah') }}">Tambah Buku</a>
+                        <a class="collapse-item" href="{{ route('perpustakaan.data') }}">Data Peminjaman</a>
+                        <a class="collapse-item" href="{{ route('perpustakaan.tambah') }}">Tambah Peminjaman</a>
                     </div>
                 </div>
             </li>
-               <!-- Nav Item - Utilities Collapse Menu -->
-               <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Jenis Buku</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">Novel</a>
-                        <a class="collapse-item" href="#">Komik</a>
-                    </div>
-                </div>
-            </li>
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                <!-- Sidebar existing content... -->
+            
+                <!-- Nav Item - Kunjungan -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('kunjungan.index') }}">
+                        <i class="fas fa-fw fa-book-reader"></i>
+                        <span>Kunjungan Perpustakaan</span>
+                    </a>                   
+                </li>
+            </ul>
+            
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+          
 
         </ul>
         <!-- End of Sidebar -->
