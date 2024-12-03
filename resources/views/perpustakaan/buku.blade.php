@@ -14,6 +14,9 @@
             {{ Session::get('success') }}
         </div>
         @endif
+        <div class="d-flex justify-content-end">
+            <a href="{{ route('orders.export.excel') }}" class="btn btn-primary">Eksport Excel</a>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -36,7 +39,10 @@
                             <a href="{{ route('perpustakaan.edit', $item['id']) }}" class="btn btn-warning btn-sm mr-4">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                        
+                            <a href="{{ route('perpustakaan.downloadPDF', $item->id) }}" class="btn btn-danger btn-sm mr-4">
+                                <i class="fas fa-file-pdf"></i> Download PDF
+                            </a>
+                            
                             <button type="button" class="btn btn-danger btn-sm" onclick="showModalDelete('{{ $item['id'] }}', '{{ $item['nama'] }}')">
                                 <i class="fas fa-trash"></i> Hapus
                             </button>

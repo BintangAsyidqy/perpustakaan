@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\perpustakaan;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PerpustakaanExport;
+use PDF;
 
 class PerpustakaanController extends Controller
 {
@@ -108,6 +111,34 @@ class PerpustakaanController extends Controller
             return redirect()->back()->with('failed', 'Gagal menghapus data obat!');
         }
     }
+    public function indexAdmin(Request $request)
+    {
+        // Ambil data order beserta relasi user
+        $orders = Perpustakaan::where('created_at', 'LIKE', '%' .$request->search. '%')->orderBy('created_at', 'ASC')->simplePaginate(5);
+        return view('perpustakaan.buku', compact('orders'));
+    }
 
+    public function exportExcel()
+    {
+        return Excel::download(new PerpustakaanExport, 'buku.xlsx');
+    } 
+
+    public function downloadPDF($id)
+    {
+        // Ambil data peminjaman buku
+        $perpustakaan = Perpustakaan::find($id);
+
+        // Jika data tidak ditemukan
+        if (!$perpustakaan) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan');
+        }
+
+        // Memasukkan data ke dalam PDF dan menghasilkan PDF
+        $pdf = PDF::loadView('perpustakaan.pdf', compact('perpustakaan'));
+
+        // Menyimpan PDF atau mengirimkan file untuk di-download
+        return $pdf->download('bukti_peminjaman_' . $perpustakaan->nama . '.pdf');
+    }
     
+
 }

@@ -1,9 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,7 +25,7 @@
 </head>
 
 <body id="page-top">
-
+    @if (Auth::check())
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -51,41 +49,39 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-            <hr class="sidebar-divider">
-             <!-- Nav Item - Pages Collapse Menu -->
-             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+            @if (Auth::user()->type == 'guru')
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="perpustakaanDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Perpustakaan</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('perpustakaan.data') }}">Data Peminjaman</a>
-                        <a class="collapse-item" href="{{ route('perpustakaan.tambah') }}">Tambah Peminjaman</a>
-                    </div>
+                <div class="dropdown-menu" aria-labelledby="perpustakaanDropdown">
+                    <a class="dropdown-item" href="{{ route('perpustakaan.data') }}">Data Peminjaman</a>
+                    <a class="dropdown-item" href="{{ route('perpustakaan.tambah') }}">Tambah Peminjaman</a>
                 </div>
             </li>
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                <!-- Sidebar existing content... -->
-            
-                <!-- Nav Item - Kunjungan -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('kunjungan.index') }}">
-                        <i class="fas fa-fw fa-book-reader"></i>
-                        <span>Kunjungan Perpustakaan</span>
-                    </a>                   
-                </li>
-            </ul>
-            
+            @endif
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
 
-          
+            <!-- Nav Item - Kunjungan -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('kunjungan.index') }}">
+                    <i class="fas fa-fw fa-book-reader"></i>
+                    <span>Kunjungan Perpustakaan</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Logout -->
+            @if (Auth::check())
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}">
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+            @endif
 
         </ul>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -103,29 +99,24 @@
                         </button>
                     </form>
 
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                       
 
                     </ul>
 
                 </nav>
                 <!-- End of Topbar -->
-
+                @endif
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     @yield('content')
-
-                   
 
                 </div>
                 <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
-
+            @if (Auth::check())
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -134,6 +125,7 @@
                     </div>
                 </div>
             </footer>
+            @endif
             <!-- End of Footer -->
 
         </div>
@@ -141,49 +133,8 @@
 
     </div>
     <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"></span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{asset('template/vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('template/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="{{asset('template/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{{asset('template/js/sb-admin-2.min.js')}}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{asset('template/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('template/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{asset('template/js/demo/datatables-demo.js')}}"></script>
-
-</body>
-
-</html>
+            <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+            
