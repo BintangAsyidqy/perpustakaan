@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Kunjungan;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\KunjunganExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KunjunganController extends Controller
 {
@@ -69,5 +72,24 @@ class KunjunganController extends Controller
 
     return redirect()->route('kunjungan.index')->with('success', 'Kunjungan berhasil dihapus.');
 }
+
+public function indexAdmin(Request $request)
+    {
+        // Ambil data order beserta relasi user
+        $kunjungan = Kunjungan::where('created_at', 'LIKE', '%' .$request->search. '%')->orderBy('created_at', 'ASC')->simplePaginate(5);
+        return view('kunjungan.index', compact('kunjungan'));
+    }
+
+    public function exportPdf($id)
+{
+    $kunjungan = Kunjungan::findOrFail($id); // Menggunakan findOrFail untuk memastikan data ditemukan
+    
+    // Generate PDF menggunakan satu data saja
+    $pdf = Pdf::loadView('kunjungan.pdf', compact('kunjungan'))
+        ->setPaper('a4', 'landscape'); // Atur ukuran kertas
+
+    return $pdf->download('kunjungan_' . $kunjungan->nama_pengunjung . '.pdf');
+}
+
 
 }

@@ -48,7 +48,9 @@ Route::middleware(['IsGuru'])->group(function () {
      Route::get('/orders/data', [PerpustakaanController::class, 'indexAdmin'])->name('orders.data');
      Route::get('/orders/export-excel', [PerpustakaanController::class, 'exportExcel'])->name('orders.export.excel');
      Route::get('/perpustakaan/{id}/download', [PerpustakaanController::class, 'downloadPDF'])->name('perpustakaan.downloadPDF');
-
+     Route::get('kunjungan/data', [KunjunganController::class, 'indexAdmin'])->name('kunjungan.data');
+     Route::get('kunjungan/export-excel', [KunjunganController::class, 'exportExcel'])->name('kunjungan.export.excel');
+     Route::get('/kunjungan/{id}/pdf', [KunjunganController::class, 'exportPdf'])->name('kunjungan.export.pdf');
 });
 
 
